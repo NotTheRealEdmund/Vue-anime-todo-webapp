@@ -4,8 +4,11 @@
     <div v-for="(todo,index) in todos" :key="todo.id" class="todo-item">
       <div class="todo-item-left">
         <input type="checkbox" v-model="todo.completed">
-      <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">{{ todo.title }}</div>
-      <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.escape="cancelEdit(todo)" v-focus>
+      <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label" :class="{ completed : todo.completed }">
+        {{ todo.title }}
+      </div>
+      <input v-else class="todo-item-edit" type="text" v-model="todo.title" 
+      @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.escape="cancelEdit(todo)" v-focus>
       </div>
       <div class="remove-item" @click="removeTodo(index)">
         &times;
@@ -129,5 +132,9 @@ export default {
     &:focus {
       outline: none;
     }
+  }
+  .completed {
+    text-decoration: line-through;
+    color: grey;
   }
 </style>
